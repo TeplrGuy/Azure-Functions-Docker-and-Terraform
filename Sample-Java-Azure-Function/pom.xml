@@ -80,11 +80,6 @@
             <groupId>com.microsoft.azure.functions</groupId>
             <artifactId>azure-functions-java-library</artifactId>
         </dependency>
-      <dependency>
-                <groupId>com.microsoft.azure</groupId>
-                <artifactId>applicationinsights-profiler-agent</artifactId>
-            </dependency>
-
         <dependency>
             <groupId>com.microsoft.azure</groupId>
             <artifactId>applicationinsights-logging-log4j2</artifactId>

@@ -16,7 +16,7 @@ COPY ./host.json /build/host.json
 COPY ./src /build/src
 RUN mvn clean package
 
-FROM mcr.microsoft.com/azure-functions/java:3.0 as runtime
+FROM mcr.microsoft.com/azure-functions/java:4.0 as runtime
 ENV AzureWebJobsScriptRoot=/home/site/wwwroot \
   AzureFunctionsJobHost__Logging__Console__IsEnabled=true
 

@@ -1,13 +1,22 @@
 package com.function;
 
 import java.util.*;
+
+import com.microsoft.applicationinsights.TelemetryClient;
 import com.microsoft.azure.functions.annotation.*;
 import com.microsoft.azure.functions.*;
+
 
 /**
  * Azure Functions with HTTP Trigger.
  */
 public class Function {
+    private TelemetryClient telemetryClient;
+
+    public Function(TelemetryClient telemetryClient) {
+        this.telemetryClient = telemetryClient;
+    }
+
     /**
      * This function listens at endpoint "/api/HttpExample". Two ways to invoke it using "curl" command in bash:
      * 1. curl -d "HTTP Body" {your host}/api/HttpExample
@@ -18,6 +27,7 @@ public class Function {
             @HttpTrigger(name = "req", methods = {HttpMethod.GET, HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<String>> request,
             final ExecutionContext context) {
         context.getLogger().info("Java HTTP trigger processed a request.");
+        telemetryClient.trackEvent("Function Test");
 
         // Parse query parameter
         String query = request.getQueryParameters().get("name");

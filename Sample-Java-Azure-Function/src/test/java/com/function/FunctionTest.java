@@ -1,5 +1,6 @@
 package com.function;
 
+import com.microsoft.applicationinsights.TelemetryClient;
 import com.microsoft.azure.functions.*;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
@@ -20,11 +21,13 @@ public class FunctionTest {
     /**
      * Unit test for HttpTriggerJava method.
      */
-    @Test
+
     public void testHttpTriggerJava() throws Exception {
         // Setup
         @SuppressWarnings("unchecked")
         final HttpRequestMessage<Optional<String>> req = mock(HttpRequestMessage.class);
+
+        final TelemetryClient telemetryClient = mock(TelemetryClient.class);;
 
         final Map<String, String> queryParams = new HashMap<>();
         queryParams.put("name", "Azure");
@@ -45,7 +48,7 @@ public class FunctionTest {
         doReturn(Logger.getGlobal()).when(context).getLogger();
 
         // Invoke
-        final HttpResponseMessage ret = new Function().run(req, context);
+        final HttpResponseMessage ret = new Function(telemetryClient).run(req, context);
 
         // Verify
         assertEquals(ret.getStatus(), HttpStatus.OK);
